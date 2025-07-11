@@ -1,47 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Carousel</title>
+  <meta charset="UTF-8" />
+  <title>Working Carousel</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: sans-serif; }
 
     .carousel {
       position: relative;
       max-width: 600px;
       margin: auto;
       overflow: hidden;
-    }
-
-    .carousel-track-container {
-      overflow: hidden;
+      border-radius: 10px;
     }
 
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease-in-out;
-      padding: 0;
-      margin: 0;
     }
 
     .carousel-slide {
-      list-style: none;
       min-width: 100%;
+      flex-shrink: 0;
     }
 
     .carousel-slide img {
       width: 100%;
       display: block;
-      border-radius: 10px;
     }
 
     .carousel-button {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.4);
       color: white;
       border: none;
       font-size: 2rem;
@@ -50,33 +43,26 @@
       z-index: 10;
     }
 
-    .carousel-button.prev {
-      left: 10px;
-    }
-
-    .carousel-button.next {
-      right: 10px;
-    }
+    .carousel-button.prev { left: 10px; }
+    .carousel-button.next { right: 10px; }
   </style>
 </head>
 <body>
 
   <div class="carousel">
     <button class="carousel-button prev">❮</button>
-    <div class="carousel-track-container">
-      <ul class="carousel-track">
-        <li class="carousel-slide"><img src="https://i.imgur.com/NaZ344M.jpg" alt="Image 1"></li>
-        <li class="carousel-slide"><img src="https://i.imgur.com/BJMrylb.jpg" alt="Image 2"></li>
-        <li class="carousel-slide"><img src="https://i.imgur.com/cMSnuJt.jpg" alt="Image 3"></li>
-        <li class="carousel-slide"><img src="https://i.imgur.com/sGi4sLP.jpg" alt="Image 4"></li>
-        <li class="carousel-slide"><img src="https://i.imgur.com/msJHNgf.jpg" alt="Image 5"></li>
-      </ul>
+    <div class="carousel-track" id="carousel-track">
+      <div class="carousel-slide"><img src="https://i.imgur.com/NaZ344M.jpg" alt="1"></div>
+      <div class="carousel-slide"><img src="https://i.imgur.com/BJMrylb.jpg" alt="2"></div>
+      <div class="carousel-slide"><img src="https://i.imgur.com/cMSnuJt.jpg" alt="3"></div>
+      <div class="carousel-slide"><img src="https://i.imgur.com/sGi4sLP.jpg" alt="4"></div>
+      <div class="carousel-slide"><img src="https://i.imgur.com/msJHNgf.jpg" alt="5"></div>
     </div>
     <button class="carousel-button next">❯</button>
   </div>
 
   <script>
-    const track = document.querySelector('.carousel-track');
+    const track = document.getElementById('carousel-track');
     const slides = Array.from(track.children);
     const nextButton = document.querySelector('.carousel-button.next');
     const prevButton = document.querySelector('.carousel-button.prev');
@@ -84,8 +70,7 @@
     let currentSlide = 0;
 
     function updateSlidePosition() {
-      const slideWidth = slides[0].getBoundingClientRect().width;
-      track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
     nextButton.addEventListener('click', () => {
@@ -98,7 +83,6 @@
       updateSlidePosition();
     });
 
-    window.addEventListener('resize', updateSlidePosition);
     window.addEventListener('load', updateSlidePosition);
   </script>
 
